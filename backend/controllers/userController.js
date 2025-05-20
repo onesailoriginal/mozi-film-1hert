@@ -25,7 +25,12 @@ exports.loginCheck = async (req, res) => {
         }
 
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '10m' });
-        res.status(200).json({ token, success: true, message: 'Bejelentkezés sikeres!', user });
+        res.status(200).json({ token, success: true, message: 'Bejelentkezés sikeres!',   user: { 
+                id: user.accountId,
+                username: user.username,
+                emailAddress: user.emailAddress,
+                isAdmin: user.isAdmin
+            } });
     } catch (error) {
         console.error('Login error:', error);
         res.status(500).json({

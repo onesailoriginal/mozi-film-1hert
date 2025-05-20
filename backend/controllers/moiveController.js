@@ -17,16 +17,18 @@ exports.getAllMovies = async (req, res) => {
 }
 
 exports.getOneMovieByID = async (req, res) => {
-    const { id } = req.params;
+    const { movieId } = req.params; 
     try {
-        const movie = await Movies.findByPk(id);
+
+        const movie = await Movies.findByPk(movieId); 
+
         if (!movie) {
             return res.status(404).json({ message: 'Movie not found' });
         }
         res.status(200).json(movie);
     } catch (error) {
-        console.error('Error fetching movie:', error);
-        res.status(500).json({ message: 'Error fetching movie' });
+        console.error('Error fetching movie by ID:', error);
+        res.status(500).json({ message: 'Error fetching movie by ID' });
     }
 }
 exports.createMovie = async (req, res) => {
